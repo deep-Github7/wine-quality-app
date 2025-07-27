@@ -29,7 +29,7 @@ if st.button('Predict'):
     # Get probability of Good Quality
     prob = model.predict_proba(input_data)[0][1]
     
-    if prob >= 0.3:  # Adjusted threshold (30% instead of 50%)
+    if prob >= 0.4:  # Adjusted threshold (30% instead of 50%)
         st.success(f'✅ Good Quality Wine (Confidence: {prob:.2f})')
     else:
         st.error(f'❌ Not Good Quality Wine (Confidence: {prob:.2f})')
