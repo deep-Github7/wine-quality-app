@@ -25,8 +25,11 @@ alcohol = st.number_input('Alcohol', 0.0, 20.0, 9.4)
 if st.button('Predict'):
     input_data = np.array([[fixed_acidity, volatile_acidity, citric_acid, residual_sugar, chlorides,
                              free_sulfur, total_sulfur, density, pH, sulphates, alcohol]])
-    prediction = model.predict(input_data)
-    if prediction[0] == 1:
-        st.success('✅ Good Quality Wine')
+    
+    # Get probability of Good Quality
+    prob = model.predict_proba(input_data)[0][1]
+    
+    if prob >= 0.3:  # Adjusted threshold (30% instead of 50%)
+        st.success(f'✅ Good Quality Wine (Confidence: {prob:.2f})')
     else:
-        st.error('❌ Not Good Quality Wine')
+        st.error(f'❌ Not Good Quality Wine (Confidence: {prob:.2f})')
